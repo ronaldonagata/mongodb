@@ -1,0 +1,67 @@
+https://docs.mongodb.com/manual/reference/connection-string/
+
+* or /data/db should have permission for mongo user
+./mongod --dbpath <directory>
+
+* Criar coleção
+
+  > db.createCollection("<nome>")
+
+* Inserir
+  > db.<nome>.insert({"nome":"Teste1", "data": new Date(1994,02,26)})
+
+  * Busca
+  > db.<nome>.find()
+
+  > db.nome.find({
+    "curso.nome":"teste"
+  })
+
+  > fb.<collection>.find({
+    $or : [
+      {"curso.nome" : "SI"},
+      {"curso.nome" : "TI"}
+    ],
+    "tipo" :"outras"
+  })
+  
+  > db.<collection>.find({ "curso.nome": { $in : ["dia", "dia"] } })
+
+* Remover db.<collection>.remove({})
+  > db.vida.remove({"nome":"Teste1"})
+  
+* Atualizar registros
+  > db.alunos.update(
+    {"curso.nome" : "SI"},
+    {
+      $set :{
+        "curso.nome" : "CA"
+      }
+    }, {
+      multi : true
+    }
+  )
+  
+* Update de Array
+  > db.<collection>.update(
+    { "_id" : ObjectId("sdfsdfds")},
+    {
+      $push : { 
+          "<field>" : "<value>"
+      }
+    }
+  )
+  
+  
+  > db.<collection>.update(
+    { "" : ObjectId("sdf54546fsd")},
+    {
+      $push : { 
+          "<field>" : { $each : [value, value]}
+      }
+    }
+  )
+  
+* db.<collection>.find({ "notas" : { $gt : 5}})
+  
+  
