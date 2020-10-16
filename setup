@@ -3,6 +3,23 @@ https://docs.mongodb.com/manual/reference/connection-string/
 * or /data/db should have permission for mongo user
 ./mongod --dbpath <directory>
 
+* Subir com mapeamentop de volume e porta
+$ docker run --rm --name mongoserver -p 8081:8081 -p 27017:27017  -v /Users/nagata/projects/bug_stock/ambiente/data:/data/db -d mongo
+
+* Subir com configuração
+$ docker run --name some-mongo -v /my/custom:/etc/mongo -d mongo --config /etc/mongo/mongod.conf
+
+* Usar o bash dentro do container do mongo
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+https://medium.com/better-programming/carefully-migrating-a-collection-from-one-mongo-server-into-another-5601f5c12354
+
+* Baixar cópia local
+mongodump --uri="mongodb://admin:sb75Gz73@mongodb-dev-oms.eastus.cloudapp.azure.com:27017/stock-service?ssl=false&authSource=admin" --collection="stockItem"
+
+* Restaurar de arquivo
+mongorestore --uri="mongodb://localhost:27017/stock-service" --nsInclude="stock-service.stockItem" ./dump
+
 * Criar coleção
 
   > db.createCollection("<nome>")
