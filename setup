@@ -13,6 +13,7 @@ $ docker run --name some-mongo -v /my/custom:/etc/mongo -d mongo --config /etc/m
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 https://medium.com/better-programming/carefully-migrating-a-collection-from-one-mongo-server-into-another-5601f5c12354
+https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
 
 * Baixar cópia local
 mongodump --uri="mongodb://admin:sb75Gz73@mongodb-dev-oms.eastus.cloudapp.azure.com:27017/stock-service?ssl=false&authSource=admin" --collection="stockItem"
