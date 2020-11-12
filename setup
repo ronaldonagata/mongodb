@@ -15,11 +15,17 @@ $ docker run --name some-mongo -v /my/custom:/etc/mongo -d mongo --config /etc/m
 https://medium.com/better-programming/carefully-migrating-a-collection-from-one-mongo-server-into-another-5601f5c12354
 https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
 
-* Baixar cópia local
-mongodump --uri="mongodb://admin:sb75Gz73@mongodb-dev-oms.eastus.cloudapp.azure.com:27017/stock-service?ssl=false&authSource=admin" --collection="stockItem"
-
 * Restaurar de arquivo
 mongorestore --uri="mongodb://localhost:27017/stock-service" --nsInclude="stock-service.stockItem" ./dump
+
+* Baixar cópia local
+mongodump --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"
+
+mongoexport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --collection=sales --out=sales.json
+
+mongorestore --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"  --drop dump
+
+mongoimport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --drop sales.json
 
 * Criar coleção
 
@@ -81,5 +87,26 @@ mongorestore --uri="mongodb://localhost:27017/stock-service" --nsInclude="stock-
   )
   
 * db.<collection>.find({ "notas" : { $gt : 5}})
+
+db.partOrder2.aggregate([{ $match: {"company": "001", "destinationBranchId":"316", "type":"PEDIDO" }} , {"$group" : {_id:{type:"$type", state:"$state", company:"$company", branch:"$destinationBranchId" }, count:{$sum:1}}}])
+
+db.order.aggregate(
+   [
+      {
+        $project:{'id': '$_id', 'state': '$state'}
+      },
+      {
+        $lookup: {
+          from: 'partOrder2',
+          let:{id:"$id",state:"$state"},
+          pipeline: [{$match: {$expr: {$and:[{$eq: [ "$orderId" , "$$id" ]},{$ne: [ "$state" , "$$state" ]}]}}}],
+          as: 'partOrder'
+      }
+    },
+    {
+        $project:{'id': '$_id'}
+      },{ $unset: "_id" }
+  ]
+)
   
   
