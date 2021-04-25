@@ -1,3 +1,10 @@
+### Logar queries
+- https://blog.couchbase.com/how-to-log-queries-generated-by-spring-data/
+logging:
+   level:
+     org.springframework.data.couchbase.repository.query: DEBUG
+
+
 ### Usar index para consumir menos memória e diminuir tempo de pesquisa
 - https://docs.mongodb.com/manual/tutorial/sort-results-with-indexes/
 
