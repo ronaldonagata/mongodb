@@ -1,4 +1,4 @@
-{ <field>: { <operator>: <value> }}
+<code> { <field>: { <operator>: <value> }} </code>
 
 $eq is de default operator when an operator is not specified
 
@@ -47,3 +47,12 @@ db.listingsAndReviews.find({ "amenities": {
                                            "Laptop friendly workspace" ]
                                          }
                             }).pretty()                       
+
+### Query for null values
+https://docs.mongodb.com/manual/tutorial/query-for-null-fields/
+The { item : null } query matches documents that either contain the item field whose value is null or that do not contain the item field.
+<code>db.inventory.find( { item: null } )</code>
+
+The { item : { $exists: false } } query matches documents that do not contain the item field
+<code>db.inventory.find( { item : { $exists: false } } )</code>
+
