@@ -19,15 +19,14 @@ O mongo se beneficia do raid 10
 
 Index -> ajuda a resolver slow queries.
 
-Collection scan -> O(n) ---> procurar em todos os documentos
-Usa B-tree para guardar as chaves dos indíces
-Index Overhead -> demora pra inserir, deletar p um documento novo pois tem que varrer as b-trees
+* Collection scan -> O(n) ---> procurar em todos os documentos.
+* Mongo usa B-tree para guardar as chaves dos indíces, a complexida é log(n) pois depende da altura da árvore.
+* Index Overhead -> cuidado ao criar muitos indices, pois pode demorar pra inserir, deletar p um documento novo pois tem que varrer as b-trees.
 
 Como os dados são guardados no disco --> WiredTiger Engine
 * Cada collection ou índice é criado um arquivo .wt
 * Setar uma pasta para as collections e index, e colocar um link simbólico para discos diferentes, pode otimizar a leitura e a escrita.
 * db.collection.insert({...}, {writeConcern: {w:3}}) , db.collection.insert({...}, {writeConcern: {w:1, j:true}}) -> faz com que o que esteja na memoria ram seja persistido no disco ... ele não espera pelo **checkpoint** passar.
-
 
 *** Single Field Index
 * db.<collection>.createIndex({<field>:<direction>})
@@ -38,8 +37,13 @@ Como os dados são guardados no disco --> WiredTiger Engine
     * db.examples.explain("executionStats").find({}) --> **IXSCAN** , **COLLSCAN**
     * Pode usar usar dot notation para indexar campos em subdocumentos.
     * Pode encontrar múltiplos valores distintos em uma única query. 
-    * Quando existem múltiplos predicados, os predicados que possuem os indexes são utilizados primeiros e os sem indexes são utilizados depois,,, assim otimizando.
-  
-    
-
-
+    * Quando existem múltiplos predicados, os predicados que possuem os indexes são utilizados primeiros e os sem indexes são utilizados depois,,, assim otimizando a busca.
+ 
+*** Explain 
+* exp = db.<collection>.explain() --> criar um objeto com o explain, ajuda a não precisar escrever explain em toda query
+* exp = db.<collection>.explain("queryPlanner") --> é o mesmo que executar sem parâmetro, modo default. **Não executa a query**
+* exp = db.<collection>.explain("executionStats") -->  **Executa a query**
+* exp = db.<collection>.explain("allPlansExecution") --> **Executa a query**
+ 
+ 
+ 
