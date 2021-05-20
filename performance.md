@@ -41,7 +41,7 @@ Como os dados são guardados no disco --> WiredTiger Engine
  
 *** Explain 
 * exp = db.<collection>.explain() --> criar um objeto com o explain, ajuda a não precisar escrever explain em toda query
-* exp = db.<collection>.explain("queryPlanner") --> é o mesmo que executar sem parâmetro, modo default. **Não executa a query**
+* exp = db.<collection>.explain("queryPlanner") --> é o mesmo que executar sem parâmetro, modo default é o queryplanner. **Não executa a query**
 * exp = db.<collection>.explain("executionStats") -->  **Executa a query**
 * exp = db.<collection>.explain("allPlansExecution") --> **Executa a query**
  
