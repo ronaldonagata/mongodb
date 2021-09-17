@@ -55,4 +55,10 @@ The { item : null } query matches documents that either contain the item field w
 
 The { item : { $exists: false } } query matches documents that do not contain the item field
 <code>db.inventory.find( { item : { $exists: false } } )</code>
+  
+  
+### Query por quantidade dentro do array
+db.accommodations.find( { $where: "this.name.length > 1" } );
+
+  
 
