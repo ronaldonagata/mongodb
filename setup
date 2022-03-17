@@ -9,6 +9,8 @@ $ docker run --rm --name mongoserver -p 8081:8081 -p 27017:27017  -v /Users/naga
 * Subir com configuração
 $ docker run --name some-mongo -v /my/custom:/etc/mongo -d mongo --config /etc/mongo/mongod.conf
 
+docker run --name mongo -v /c/Users/ronal/projetos/renner/mongo:/etc/mongo -d mongo:4.4.8 --config /etc/mongo/mongod.conf
+
 * Mapeamento e configuração
 docker run --rm --name mongoserver -p 27017:27017  -v /Users/nagata/programas/mongo/data:/data/db -v /Users/nagata/programas/mongo/conf:/etc/mongo -d mongo  --config /etc/mongo/mongod.conf
 
