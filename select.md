@@ -60,7 +60,7 @@ The { item : { $exists: false } } query matches documents that do not contain th
 ### Query por quantidade dentro do array
 db.accommodations.find( { $where: "this.name.length > 1" } );
   
-### verify exists at lest two elements { “countries.1” : { “$exists” : true } }
+### verify exists at least two elements { “countries.1” : { “$exists” : true } }
 
 
 ## It's the equivalent of the following SQL instruction:
