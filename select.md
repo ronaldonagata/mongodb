@@ -60,9 +60,21 @@ The { item : { $exists: false } } query matches documents that do not contain th
 ### Query por quantidade dentro do array
 db.accommodations.find( { $where: "this.name.length > 1" } );
   
-{ “countries.1” : { “$exists” : true } }
+### verify exists at lest two elements { “countries.1” : { “$exists” : true } }
 
 
+## It's the equivalent of the following SQL instruction:
+# SELECT COUNT(*) FROM Table
+# GROUP BY your_field
+# HAVING COUNT(*) > N
+query = db.collection.aggregate([
 
+    { 
+      "$group": { "_id": "$your_field", #GROUP BY your_field
+    			"count": {"$sum":1} }   #COUNT(*)
+    },
+    
+    { "$match": { "count": { "$gt": N } } } #HAVING COUNT(*) > N
+])
   
 
