@@ -2,14 +2,16 @@ Recurso que utiliza muita memória:
 * Aggregation
 * Index Traversing
 * Write Operations
-* Query Engine
+* Query Engine - to retrieve query results
 * Connections
 
-Mongo vai tentar usar todos os cores da cpu:
+Mongo ill try to use all the cpu ores by default:
 * Page Compression
 * Data Calculation
 * Aggregation Framework Operations
 * Map Reduce
+
+OBS: Operations that works at the same document can be blocking, like update operations, so multiples threads and cpus won't help to achieve better performance,
 
 Obs: Operações que podem ser bloqueantes update no mesmo documento... é bloqueante logo , multiples threads não vai ajudar.
 
